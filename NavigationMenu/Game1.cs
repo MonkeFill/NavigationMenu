@@ -8,6 +8,7 @@ namespace NavigationMenu
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Texture2D Pixel;
 
         public Game1()
         {
@@ -19,13 +20,16 @@ namespace NavigationMenu
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            Button Test = new Button()
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Pixel = new Texture2D(GraphicsDevice, 1, 1);
+            Pixel.SetData(new[] { Color.White });
+
 
             // TODO: use this.Content to load your game content here
         }
