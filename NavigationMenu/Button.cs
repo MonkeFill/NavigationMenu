@@ -35,8 +35,16 @@ namespace NavigationMenu.Content
             Category = Input_Category;
             BackgroundTexture = Input_Background;
             Stroke = Input_Stroke;
-            StrokeColour = (Color)Input_StrokeColour;
             StrokePixel = Input_StrokePixel;
+            if (Input_StrokeColour == null)
+            {
+                Input_StrokeColour = Color.Black; //Default stroke colour
+            }
+            else
+            {
+                StrokeColour = (Color)Input_StrokeColour;
+                StrokePixel.SetData(new[] { StrokeColour }); //Colouring the pixel
+            }
 
         }
 
@@ -55,11 +63,11 @@ namespace NavigationMenu.Content
                 if (Stroke != 0) //If there is a stroke, add it
                 {
                     Rectangle StrokeRectangle = new Rectangle((int)Position.X, (int)Position.Y, Width, Height); //Default rectangle outline
-                    for (int StrokeCount = 0; StrokeCount < Stroke; StrokeCount++)
-                    {
-                        Rectangle NewStrokeRectangle = new Rectangle(StrokeRectangle.X + StrokeCount, StrokeRectangle.Y + StrokeCount, StrokeRectangle.Width - StrokeCount, StrokeRectangle.Height - StrokeCount); //Making the rectangle go in to create stroke
-                        ActiveSpriteBatch.Draw(StrokePixel, NewStrokeRectangle, StrokeColour);
-                    }
+                    //Drawing four separate boxes for the stroke sides
+                    ActiveSpriteBatch.Draw(StrokePixel, new Rectangle(StrokeRectangle.X - Stroke, StrokeRectangle.Y - Stroke, StrokeRectangle.Width + (Stroke * 2), Stroke), StrokeColour); //Top
+                    ActiveSpriteBatch.Draw(StrokePixel, new Rectangle(StrokeRectangle.X - Stroke, StrokeRectangle.Y + StrokeRectangle.Height, StrokeRectangle.Width + (Stroke * 2), Stroke), StrokeColour); //Bottom
+                    ActiveSpriteBatch.Draw(StrokePixel, new Rectangle(StrokeRectangle.X - Stroke, StrokeRectangle.Y - Stroke, Stroke, StrokeRectangle.Height + (Stroke * 2)), StrokeColour); //Left
+                    ActiveSpriteBatch.Draw(StrokePixel, new Rectangle(StrokeRectangle.X + StrokeRectangle.Width, StrokeRectangle.Y - Stroke, Stroke, StrokeRectangle.Height + (Stroke * 2)), StrokeColour); //Right
                 }
             }
 

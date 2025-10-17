@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using NavigationMenu.Content;
 
 namespace NavigationMenu
 {
@@ -9,6 +10,7 @@ namespace NavigationMenu
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D Pixel;
+        Button TestButton;
 
         public Game1()
         {
@@ -17,10 +19,9 @@ namespace NavigationMenu
             IsMouseVisible = true;
         }
 
-        protected override void Initialize()
+        protected override void Initialize() 
         {
             // TODO: Add your initialization logic here
-            Button Test = new Button()
             base.Initialize();
         }
 
@@ -29,7 +30,8 @@ namespace NavigationMenu
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Pixel = new Texture2D(GraphicsDevice, 1, 1);
             Pixel.SetData(new[] { Color.White });
-
+            TestButton = new Button("TestButton", new Vector2(10,10), 50, 50, false, Input_Stroke: 5, Input_StrokeColour: Color.GreenYellow, Input_StrokePixel: Pixel, Input_Background: Content.Load<Texture2D>("BackgroundTest"));
+            
 
             // TODO: use this.Content to load your game content here
         }
@@ -47,6 +49,9 @@ namespace NavigationMenu
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            _spriteBatch.Begin();
+            TestButton.Draw(_spriteBatch);
+            _spriteBatch.End();
 
             // TODO: Add your drawing code here
 
