@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NavigationMenu.Content
+namespace NavigationMenu
 {
     public class ButtonsManager
     {

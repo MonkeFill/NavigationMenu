@@ -30,7 +30,7 @@ namespace NavigationMenu
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Pixel = new Texture2D(GraphicsDevice, 1, 1);
             Pixel.SetData(new[] { Color.White });
-            TestButton = new Button("TestButton", new Vector2(10,10), 50, 50, false, Input_Stroke: 5, Input_StrokeColour: Color.GreenYellow, Input_StrokePixel: Pixel, Input_Background: Content.Load<Texture2D>("BackgroundTest"));
+            TestButton = new Button("TestButton", new Vector2(10,10), 50, 50, true, Input_Stroke: 5, Input_StrokeColour: Color.GreenYellow, Input_StrokePixel: Pixel, Input_Background: Content.Load<Texture2D>("BackgroundTest"));
             
 
             // TODO: use this.Content to load your game content here
