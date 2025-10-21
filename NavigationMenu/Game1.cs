@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using NavigationMenu.Content;
 
 namespace NavigationMenu
 {
@@ -10,7 +9,7 @@ namespace NavigationMenu
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D Pixel;
-        Button TestButton;
+        ButtonsManager ButtonManager = new ButtonsManager();
 
         public Game1()
         {
@@ -28,19 +27,18 @@ namespace NavigationMenu
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            Pixel = new Texture2D(GraphicsDevice, 1, 1);
+           Pixel = new Texture2D(GraphicsDevice, 1, 1);
             Pixel.SetData(new[] { Color.White });
-            TestButton = new Button("TestButton", new Vector2(10,10), 50, 50, true, Input_Stroke: 5, Input_StrokeColour: Color.GreenYellow, Input_StrokePixel: Pixel, Input_Background: Content.Load<Texture2D>("BackgroundTest"));
-            
-
-            // TODO: use this.Content to load your game content here
+            ButtonInitialiser.Initalise(ButtonManager, Content, Pixel);
+           // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            MouseState ActiveMouse = Mouse.GetState();
+            ButtonManager.UpdateButtons(ActiveMouse);
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -50,7 +48,7 @@ namespace NavigationMenu
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
-            TestButton.Draw(_spriteBatch);
+            ButtonManager.DrawButtons(_spriteBatch);
             _spriteBatch.End();
 
             // TODO: Add your drawing code here

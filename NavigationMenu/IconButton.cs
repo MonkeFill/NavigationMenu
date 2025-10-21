@@ -11,9 +11,9 @@ namespace NavigationMenu
 {
     public class IconButton : Button
     {
-        Texture2D Icon;
-        Texture2D HoverIcon;
-        Texture2D ActiveIcon;
+        private Texture2D Icon;
+        private Texture2D HoverIcon;
+        private Texture2D ActiveIcon;
 
         public IconButton( //Creating the button with optional parameters for details on the button
             string Input_Name,
@@ -37,9 +37,22 @@ namespace NavigationMenu
                 ActiveIcon = Input_ActiveIcon;
             }
 
-        public void Draw(SpriteBatch ActiveSpriteBatch)
+        public override void Draw(SpriteBatch ActiveSpriteBatch)
         {
             base.Draw(ActiveSpriteBatch);
+            Texture2D TextureForIcon = Icon;
+            if (Hover == true)
+            {
+                TextureForIcon = HoverIcon;
+            }
+            if (Active == true)
+            {
+                TextureForIcon = ActiveIcon;
+            }
+            float MiddleX = Position.X + (Width / 2);
+            float MiddleY = Position.Y + (Height / 2);
+            Vector2 PositionToDraw = new Vector2(MiddleX - (TextureForIcon.Width / 2), MiddleY - (TextureForIcon.Height / 2));
+            ActiveSpriteBatch.Draw(TextureForIcon, PositionToDraw, Color.White);
         }
     }
 }

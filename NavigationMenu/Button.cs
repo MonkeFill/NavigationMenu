@@ -13,19 +13,19 @@ namespace NavigationMenu
     public class Button
     {
         //Class Variables
-        string Name;
+        public string Name;
         protected Vector2 Position;
         protected int Height;
         protected int Width;
         protected bool Visible;
-        string Category;
-        Texture2D BackgroundTexture;
-        int Stroke;
-        Color StrokeColour;
-        Texture2D StrokePixel;
+        public string Category;
+        private Texture2D BackgroundTexture;
+        private int Stroke;
+        private Color StrokeColour;
+        private Texture2D StrokePixel;
 
-        protected bool Active;
-        protected bool Hover;
+        public bool Active;
+        public bool Hover;
 
         //Methods
         public Button(
@@ -62,7 +62,7 @@ namespace NavigationMenu
 
         }
 
-        public void Draw(SpriteBatch ActiveSpriteBatch)
+        public virtual void Draw(SpriteBatch ActiveSpriteBatch)
         {
             if (BackgroundTexture != null) //If there is a background, draw it
             {
@@ -84,21 +84,32 @@ namespace NavigationMenu
 
         }
 
-        public void Update(MouseState ActiveMouse)
+        public bool Update(MouseState ActiveMouse) //Will return true if active becomes true
         {
-            if (ActiveMouse.X >= Position.X && ActiveMouse.X <= Position.X + Width) //inside of the X bounds of the button
+            if (Active == false) //Not an active button
             {
-                if (ActiveMouse.Y >= Position.Y && ActiveMouse.Y <= Position.Y + Height) //inside of the Y bounds of the button
+                if (ActiveMouse.X >= Position.X && ActiveMouse.X <= Position.X + Width) //inside of the X bounds of the button
                 {
-                    Hover = true; 
-                    if (ActiveMouse.LeftButton == ButtonState.Pressed) //If the button is pressed
+                    if (ActiveMouse.Y >= Position.Y && ActiveMouse.Y <= Position.Y + Height) //inside of the Y bounds of the button
                     {
-                        Hover = false;
-                        Active = true;
+                        if (ActiveMouse.LeftButton == ButtonState.Pressed) //If the button is pressed
+                        {
+                            Active = true;
+                            return true;
+                        }
+                        {
+                            Hover = true;
+                        }
                     }
                 }
+                return false;
             }
+            return true;
         }
-
+        public void ResetButton()
+        {
+            Active = false;
+            Hover = false;
+        }
     }
 }
