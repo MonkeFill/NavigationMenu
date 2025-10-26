@@ -29,7 +29,7 @@ namespace NavigationMenu
             _spriteBatch = new SpriteBatch(GraphicsDevice);
            Pixel = new Texture2D(GraphicsDevice, 1, 1);
             Pixel.SetData(new[] { Color.White });
-            ButtonInitialiser.Initalise(ButtonManager, Content, Pixel);
+            ButtonInitialiser.Initalise(ButtonManager, Content, Pixel, Content.Load<SpriteFont>("DefaultFont"));
            // TODO: use this.Content to load your game content here
         }
 

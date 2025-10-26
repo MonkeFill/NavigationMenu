@@ -70,6 +70,17 @@ namespace NavigationMenu
                 //LogEvent($"Can't find button {ButtonName}", ErrorType.Warning);
             }
         }
+        
+        public void HideButtonsInCategory(string CategoryName)
+        {
+            foreach (Button ActiveButton in ButtonsCreated)
+            {
+                if (ActiveButton.Category == CategoryName)
+                {
+                    ActiveButton.Visible = false;
+                }
+            }
+        }
 
         public Button GetButtonFromName(string ButtonName)
         {

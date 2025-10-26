@@ -17,7 +17,7 @@ namespace NavigationMenu
         protected Vector2 Position;
         protected int Height;
         protected int Width;
-        protected bool Visible;
+        public bool Visible;
         public string Category;
         private Texture2D BackgroundTexture;
         private int Stroke;
@@ -86,30 +86,33 @@ namespace NavigationMenu
 
         public bool Update(MouseState ActiveMouse) //Will return true if active becomes true
         {
-            if (Active == false) //Not an active button
+            if (Visible == true) //Button is visible
             {
-                if (ActiveMouse.X >= Position.X && ActiveMouse.X <= Position.X + Width) //inside of the X bounds of the button
+                if (Active == false) //Not an active button
                 {
-                    if (ActiveMouse.Y >= Position.Y && ActiveMouse.Y <= Position.Y + Height) //inside of the Y bounds of the button
+                    if (ActiveMouse.X >= Position.X && ActiveMouse.X <= Position.X + Width) //inside of the X bounds of the button
                     {
-                        if (ActiveMouse.LeftButton == ButtonState.Pressed) //If the button is pressed
+                        if (ActiveMouse.Y >= Position.Y && ActiveMouse.Y <= Position.Y + Height) //inside of the Y bounds of the button
                         {
-                            Active = true;
-                            return true;
-                        }
-                        {
+                            if (ActiveMouse.LeftButton == ButtonState.Pressed) //If the button is pressed
+                            {
+                                Active = true;
+                                return true;
+                            }
                             Hover = true;
                         }
                     }
+                    return false;
                 }
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
         public void ResetButton()
         {
             Active = false;
             Hover = false;
+            Visible = true;
         }
     }
 }

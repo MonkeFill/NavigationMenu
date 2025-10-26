@@ -61,3 +61,10 @@
 /processorParam:TextureFormat=Color
 /build:0_0img9.png;ActiveTest
 
+#begin DefaultFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:DefaultFont.spritefont
+

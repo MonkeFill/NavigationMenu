@@ -21,7 +21,7 @@ namespace NavigationMenu
             int Input_Height,
             int Input_Width,
             Texture2D Input_Icon,
-            bool Input_Active = false,
+            bool Input_Visible = false,
             string Input_Category = null,
             Texture2D Input_Background = null,
             int Input_Stroke = 0,
@@ -29,7 +29,7 @@ namespace NavigationMenu
             Texture2D Input_StrokePixel = null,
             Texture2D Input_HoverIcon = null,
             Texture2D Input_ActiveIcon = null
-            ) : base(Input_Name,Input_Position,Input_Height,Input_Width, Input_Active, Input_Category, Input_Background, Input_Stroke ,Input_StrokeColour, Input_StrokePixel) //Adding variables to button
+            ) : base(Input_Name,Input_Position,Input_Height,Input_Width, Input_Visible, Input_Category, Input_Background, Input_Stroke ,Input_StrokeColour, Input_StrokePixel) //Adding variables to button
             {
             //Adding variables to the additonal parameters
                 Icon = Input_Icon;
@@ -39,20 +39,23 @@ namespace NavigationMenu
 
         public override void Draw(SpriteBatch ActiveSpriteBatch)
         {
-            base.Draw(ActiveSpriteBatch);
-            Texture2D TextureForIcon = Icon;
-            if (Hover == true)
+            if (Visible == true) //Only draw if the button is visible
             {
-                TextureForIcon = HoverIcon;
+                base.Draw(ActiveSpriteBatch);
+                Texture2D TextureForIcon = Icon;
+                if (Hover == true)
+                {
+                    TextureForIcon = HoverIcon;
+                }
+                if (Active == true)
+                {
+                    TextureForIcon = ActiveIcon;
+                }
+                float MiddleX = Position.X + (Width / 2);
+                float MiddleY = Position.Y + (Height / 2);
+                Vector2 PositionToDraw = new Vector2(MiddleX - (TextureForIcon.Width / 2), MiddleY - (TextureForIcon.Height / 2));
+                ActiveSpriteBatch.Draw(TextureForIcon, PositionToDraw, Color.White);
             }
-            if (Active == true)
-            {
-                TextureForIcon = ActiveIcon;
-            }
-            float MiddleX = Position.X + (Width / 2);
-            float MiddleY = Position.Y + (Height / 2);
-            Vector2 PositionToDraw = new Vector2(MiddleX - (TextureForIcon.Width / 2), MiddleY - (TextureForIcon.Height / 2));
-            ActiveSpriteBatch.Draw(TextureForIcon, PositionToDraw, Color.White);
         }
     }
 }
